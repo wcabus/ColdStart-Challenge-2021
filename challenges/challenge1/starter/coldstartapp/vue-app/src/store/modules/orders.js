@@ -20,7 +20,7 @@ export default {
     async postOrderAction({ commit }, icecreamId) {
       try {
         const response = await axios.post(`${API}/orders`, { icecreamId });
-        const order = parseItem(response);
+        const order = parseItem(response, 201);
         commit(POST_ORDER, order);
         return order;
       } catch (error) {
