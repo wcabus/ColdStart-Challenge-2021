@@ -17,11 +17,9 @@ export default {
     CardContent,
   },
   data() {
-    return {
-    };
+    return {};
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
@@ -32,13 +30,10 @@ export default {
       Loading data ...
     </div>
     <div class="container">
-      <div
-        v-for="(icecream) in icecreams"
-        :key="icecream.Id"
-        role="presentation"
-      >
+      <div v-for="icecream in icecreams" :key="icecream.Id" role="presentation">
         <div class="card">
           <CardContent
+            :id="icecream.Id"
             :name="icecream.Name"
             :description="icecream.Description"
             :imageurl="icecream.ImageUrl"

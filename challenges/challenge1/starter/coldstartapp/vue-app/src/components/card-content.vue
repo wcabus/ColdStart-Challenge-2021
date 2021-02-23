@@ -1,10 +1,13 @@
 <script>
+import { mapActions } from 'vuex';
+import ButtonFooter from '@/components/button-footer.vue';
+
 export default {
   name: 'CardContent',
   props: {
     id: {
-      type: String,
-      default: () => '',
+      type: Number,
+      default: () => -1,
     },
     name: {
       type: String,
@@ -19,7 +22,24 @@ export default {
       default: () => '',
     },
   },
+  data() {
+    return {
+      errorMessage: '',
+    };
+  },
+  components: {
+    ButtonFooter,
+  },
   methods: {
+    ...mapActions('orders', ['postOrderAction']),
+    async placeOrder() {
+      this.errorMessage = undefined;
+      try {
+        await this.postOrderAction(this.id);
+      } catch (error) {
+        this.errorMessage = 'Unauthorized';
+      }
+    },
   },
 };
 </script>
@@ -36,5 +56,7 @@ export default {
       </div>
       <p class="description">{{ description }}</p>
     </div>
+
+    <ButtonFooter @clicked="placeOrder" label="Place Order" />
   </div>
 </template>
