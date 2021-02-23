@@ -1,5 +1,5 @@
 const { getUser } = require('../shared/user-utils');
-const { QueueClient, QueueServiceClient } = require('@azure/storage-queue');
+const { QueueServiceClient } = require('@azure/storage-queue');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = async function (context, req) {
@@ -10,7 +10,7 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const connectionString = process.env.AzureWebJobsStorage;
+  const connectionString = process.env.QUEUE_STORAGE;
   const queueServiceClient = QueueServiceClient.fromConnectionString(
     connectionString
   );
