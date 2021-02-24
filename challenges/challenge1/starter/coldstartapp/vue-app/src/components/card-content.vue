@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'vuex';
 import ButtonFooter from '@/components/button-footer.vue';
+import getUserInfo from '../assets/js/userInfo';
 
 export default {
   name: 'CardContent',
@@ -25,10 +26,14 @@ export default {
   data() {
     return {
       errorMessage: '',
+      user: undefined,
     };
   },
   components: {
     ButtonFooter,
+  },
+  async created() {
+    this.user = await getUserInfo();
   },
   methods: {
     ...mapActions('orders', ['postOrderAction']),
@@ -57,6 +62,6 @@ export default {
       <p class="description">{{ description }}</p>
     </div>
 
-    <ButtonFooter @clicked="placeOrder" label="Place Order" />
+    <ButtonFooter v-if="user" @clicked="placeOrder" label="Place Order" />
   </div>
 </template>
